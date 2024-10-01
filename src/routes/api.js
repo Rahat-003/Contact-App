@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const DummyController = require("./../controllers/DummyController");
+
 /**
  * @url http://localhost:3000/
  */
@@ -8,7 +10,11 @@ router.get("/", async (req, res) => {
     res.send("Welcome to Evatix Assessment 2024");
 });
 
-// router.post("/sign-up", UserController.createUser);
+// Inserting dummy data into DB
+router.post("/insert-dummy-user", DummyController.insertDummyUser);
+router.post("/insert-dummy-data/find-user", DummyController.findUser);
+router.post("/insert-dummy-contact", DummyController.insertDummyContact);
+
 router.use("/user", require("./user/index"));
 
 module.exports = router;
