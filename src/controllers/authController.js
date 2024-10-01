@@ -3,6 +3,7 @@ const { successResponse, errorResponse } = require("./../helpers/apiResponse");
 
 const bcrypt = require("bcrypt");
 const { getRefreshToken } = require("../helpers/getRefreshToken");
+const validator = require("validator");
 
 exports.userLogin = async (req, res) => {
     try {
@@ -10,7 +11,8 @@ exports.userLogin = async (req, res) => {
         if (!email || !password)
             return errorResponse(res, "email and password is required");
         email = email.toLowerCase();
-
+        if (!validator.isEmail(email))
+            return errorResponse(res, "Invalid email");
         const user = await UserModel.findOne({ email }).select(
             "email password"
         );

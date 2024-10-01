@@ -1,8 +1,7 @@
 const UserModel = require("./../models/UserModel");
 const { successResponse, errorResponse } = require("./../helpers/apiResponse");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 const { getRefreshToken } = require("../helpers/getRefreshToken");
+const validator = require("validator");
 
 exports.userSignUp = async (req, res) => {
     try {
@@ -15,7 +14,12 @@ exports.userSignUp = async (req, res) => {
         if (!gender) return errorResponse(res, "gender is required");
 
         email = email.toLowerCase();
-        const userExists = await UserModel.findOne({ email });
+
+        if (!validator.isEmail(email))
+            return errorResponse(res, "Invalid email");
+
+        const userExists = await UserModel.findOne({ email, deletedAt: null });
+
         if (userExists) return errorResponse(res, "User already exists");
 
         const newUser = await UserModel.create({

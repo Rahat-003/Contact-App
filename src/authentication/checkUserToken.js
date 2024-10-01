@@ -2,7 +2,7 @@ const { verify } = require("jsonwebtoken");
 const UserModel = require("../models/UserModel");
 const { errorHandler } = require("../helpers/apiResponse");
 
-module.exports.checkUserToken = async (req, res, next) => {
+exports.checkUserToken = async (req, res, next) => {
     try {
         let token = req.get("authorization");
 

@@ -16,5 +16,6 @@ router.post("/insert-dummy-data/find-user", DummyController.findUser);
 router.post("/insert-dummy-contact", DummyController.insertDummyContact);
 
 router.use("/user", require("./user/index"));
+router.use("/contacts", require("./../routes/contact/endpoint/contact.route"));
 
 module.exports = router;

@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
-const SALT_WORK_FACTOR = 20;
-// const shortid = require("shortid");
+const SALT_WORK_FACTOR = Number(process.env.SALT_WORK_FACTOR);
 
 const UserSchema = new Schema(
     {
@@ -28,13 +27,15 @@ const UserSchema = new Schema(
                 values: ["male", "female", "other"],
             },
         },
+        deletedAt: {
+            type: Date,
+        },
     },
     { timestamps: true }
 );
 
 UserSchema.pre("save", function (next) {
     let user = this;
-
     // only hash the password if it has been modified (or is new)
     if (!user.isModified("password")) return next();
 
@@ -51,12 +52,5 @@ UserSchema.pre("save", function (next) {
         });
     });
 });
-
-UserSchema.methods.comparePassword = function (candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
-    });
-};
 
 module.exports = mongoose.model("users", UserSchema);
