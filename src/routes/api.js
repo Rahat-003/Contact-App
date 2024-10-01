@@ -7,7 +7,7 @@ const DummyController = require("./../controllers/DummyController");
  */
 
 router.get("/", async (req, res) => {
-    res.send("Welcome to Evatix Assessment 2024");
+    res.send("Welcome to Contact Application");
 });
 
 // Inserting dummy data into DB

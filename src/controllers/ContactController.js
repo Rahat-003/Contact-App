@@ -5,8 +5,6 @@ exports.getContactList = async (req, res) => {
     try {
         const userId = req.userId;
         const { page, limit } = req.query;
-        console.log(`getContactList ${userId}`);
-
         const contact = await ContactModel.find({
             user: userId,
             deletedAt: null,

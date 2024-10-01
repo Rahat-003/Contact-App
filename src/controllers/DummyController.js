@@ -34,11 +34,11 @@ exports.insertDummyUser = async (req, res) => {
 exports.findUser = async (req, res) => {
     try {
         const { email } = req.body;
-        console.log(email);
         const user = await UserModel.find({
             email,
             deletedAt: null,
-        });
+        }).select("-password");
+
         return successResponse(res, {
             message: "User found successfully.",
             data: {
@@ -68,16 +68,15 @@ exports.insertDummyContact = async (req, res) => {
             });
 
         for (let i = 0; i < userLen; i++) {
-            let email = `dummy${getRandomInt(1, userLen)}@gmail.com`;
             const user = await UserModel.findOne({
-                email: email,
+                email: `dummy${i + 1}@gmail.com`,
             });
             if (!user) {
                 continue;
             }
             userIdList.push(user._id.toString());
         }
-        const maxLength = 298774;
+        const maxLength = 300005;
 
         for (let i = 0; i < maxLength; i++) {
             const randomIndex = getRandomInt(0, userIdList.length - 1);

@@ -40,6 +40,9 @@ const contactModel = new Schema(
     }
 );
 
+/*
+    Indexed user field of the ContactModel. As this field won't be updated, so it will help to make query faster.
+*/
 contactModel.index({ user: 1 });
 
 module.exports = mongoose.model("contacts", contactModel);
