@@ -19,7 +19,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\": \"dummy85@gmail.com\",\n    \"password\": \"12345\"\n}",
+									"raw": "{\n    \"email\": \"rahat@gmail.com\",\n    \"password\": \"12345\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -86,22 +86,16 @@
 								"type": "text/javascript",
 								"packages": {},
 								"exec": [
-									"// Check if the response status is 200",
 									"if (pm.response.code === 200) {",
-									"    // Check if the response body is valid JSON",
 									"    let responseBody;",
-									"",
 									"    try {",
 									"        responseBody = pm.response.json();",
 									"    } catch (e) {",
 									"        console.log(\"Response is not valid JSON:\", e);",
-									"        return; // Exit the script if parsing fails",
+									"        return;",
 									"    }",
-									"    // Check if the 'token' field exists in the response",
 									"    if (responseBody.data.token) {",
-									"        // Extract the token",
-									"        const bearerToken = responseBody.data.token; // Adjust this based on your actual response structure",
-									"",
+									"        const bearerToken = responseBody.data.token; ",
 									"        // Set the Bearer token as a global variable",
 									"        pm.globals.set(\"bearerToken\", bearerToken);",
 									"    } else {",
@@ -193,197 +187,60 @@
 					]
 				},
 				{
-					"name": "contacts",
-					"item": [
-						{
-							"name": "getContactList",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{bearerToken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/contacts?page=1&limit=10",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"contacts"
-									],
-									"query": [
-										{
-											"key": "page",
-											"value": "1"
-										},
-										{
-											"key": "limit",
-											"value": "10"
-										}
-									]
+					"name": "importContact",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
 								}
-							},
-							"response": []
+							]
 						},
-						{
-							"name": "getContactListByGroup",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{bearerToken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/contacts/group?page=6&limit=10&group=work",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"contacts",
-										"group"
-									],
-									"query": [
-										{
-											"key": "page",
-											"value": "6"
-										},
-										{
-											"key": "limit",
-											"value": "10"
-										},
-										{
-											"key": "group",
-											"value": "work"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "createNewContact",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{bearerToken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"Baba\",\n    \"group\": \"family\",\n    \"email\": \"father@gmail.com\",\n    \"phone\": \"0123354\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/contacts",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"contacts"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "updateContact",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"Rafi\",\n    \"phone\": \"12345\",\n    \"updatedPhone\": \"hello\",\n    \"group\": \"friend\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/contacts/66faf2be98cc811e482b2212",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"contacts",
-										"66faf2be98cc811e482b2212"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "deleteContact",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/contacts/66faf2be98cc811e482b2212?phone=hello",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"contacts",
-										"66faf2be98cc811e482b2212"
-									],
-									"query": [
-										{
-											"key": "phone",
-											"value": "hello"
-										}
-									]
-								}
-							},
-							"response": []
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/import-contact",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"import-contact"
+							]
 						}
-					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"packages": {},
-								"exec": [
-									""
-								]
-							}
+					},
+					"response": []
+				},
+				{
+					"name": "exportContact",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"packages": {},
-								"exec": [
-									""
-								]
-							}
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/export-contact",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"export-contact"
+							]
 						}
-					]
+					},
+					"response": []
 				}
 			]
 		},
@@ -464,6 +321,199 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "contacts",
+			"item": [
+				{
+					"name": "getContactList",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/contacts?page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"contacts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getContactListByGroup",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/contacts/group?page=1&limit=10&group=work",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"contacts",
+								"group"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "group",
+									"value": "work"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createNewContact",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Baba\",\n    \"group\": \"family\",\n    \"email\": \"father@gmail.com\",\n    \"phone\": \"0123354\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/contacts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateContact",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Rafi\",\n    \"phone\": \"12345\",\n    \"updatedPhone\": \"hello\",\n    \"group\": \"friend\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/contacts/66faf2be98cc811e482b2212",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"contacts",
+								"66faf2be98cc811e482b2212"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteContact",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/contacts/66faf2be98cc811e482b2212?phone=hello",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"contacts",
+								"66faf2be98cc811e482b2212"
+							],
+							"query": [
+								{
+									"key": "phone",
+									"value": "hello"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		}

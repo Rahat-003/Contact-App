@@ -17,5 +17,5 @@ mongoose
     })
     .catch((err) => {
         console.error("App starting error:", err.message);
-        // process. Exit(1);
+        // process.Exit(1);
     });

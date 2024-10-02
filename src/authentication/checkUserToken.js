@@ -1,16 +1,17 @@
 const { verify } = require("jsonwebtoken");
 const UserModel = require("../models/UserModel");
-const { errorHandler } = require("../helpers/apiResponse");
+const { errorResponseWithCode } = require("../helpers/apiResponse");
 
 exports.checkUserToken = async (req, res, next) => {
     try {
         let token = req.get("authorization");
 
         if (!token) {
-            return res.status(401).json({
-                status: false,
-                message: "Access denied! unauthorized User",
-            });
+            return errorResponseWithCode(
+                res,
+                "Access denied! unauthorized User",
+                401
+            );
         }
 
         // Removes the first 7 characters "Bearer " to get actual token
@@ -19,10 +20,7 @@ exports.checkUserToken = async (req, res, next) => {
         const { userId } = verify(token, process.env.JWT_PRIVATE_KEY_USER);
 
         if (!userId) {
-            return res.status(403).json({
-                status: false,
-                message: "Invalid token 0",
-            });
+            return errorResponseWithCode(res, "Invalid token 0", 403);
         }
 
         const user = await UserModel.findOne({
@@ -31,20 +29,12 @@ exports.checkUserToken = async (req, res, next) => {
         });
 
         if (!user) {
-            return res.status(403).json({
-                status: false,
-                error: "Invalid token 1",
-            });
+            return errorResponseWithCode(res, "Invalid token 1", 403);
         }
 
         req.userId = userId;
-
         next();
     } catch (err) {
-        console.log(err);
-        return res.status(403).json({
-            status: false,
-            error: err,
-        });
+        return errorResponseWithCode(res, err, 403);
     }
 };
