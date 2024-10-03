@@ -9,8 +9,8 @@ const ContactController = require("./../../controllers/ContactController");
  *
  */
 router.use("/auth", require("./endpoint/auth.user.route"));
-router.use("/profile", checkUserToken, UserController.getUserProfile);
-router.use("/import-contact", checkUserToken, ContactController.importContact);
-router.use("/export-contact", checkUserToken, ContactController.exportContact);
+router.get("/profile", checkUserToken, UserController.getUserProfile);
+router.post("/import-contact", checkUserToken, ContactController.importContact);
+router.get("/export-contact", checkUserToken, ContactController.exportContact);
 
 module.exports = router;
