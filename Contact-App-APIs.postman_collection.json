@@ -199,7 +199,7 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "{{base_url}}/user/import-contact",
@@ -380,7 +380,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/contacts/group?page=1&limit=10&group=work",
+							"raw": "{{base_url}}/contacts/group?page=1&limit=10&group=family",
 							"host": [
 								"{{base_url}}"
 							],
@@ -399,7 +399,7 @@
 								},
 								{
 									"key": "group",
-									"value": "work"
+									"value": "family"
 								}
 							]
 						}
@@ -449,7 +449,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Rafi\",\n    \"phone\": \"12345\",\n    \"updatedPhone\": \"hello\",\n    \"group\": \"friend\"\n}",
+							"raw": "{\n    \"name\": \"Rafi\",\n    \"phone\": \"017923497233\",\n    \"updatedPhone\": \"01792349773\",\n    \"group\": \"friend\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -457,13 +457,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/contacts/66faf2be98cc811e482b2212",
+							"raw": "{{base_url}}/contacts/66fd9e8365795f2aa299f718",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"contacts",
-								"66faf2be98cc811e482b2212"
+								"66fd9e8365795f2aa299f718"
 							]
 						}
 					},
@@ -475,18 +475,18 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/contacts/66faf2be98cc811e482b2212?phone=hello",
+							"raw": "{{base_url}}/contacts/66fd9e8365795f2aa299f718?phone=01792349773",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"contacts",
-								"66faf2be98cc811e482b2212"
+								"66fd9e8365795f2aa299f718"
 							],
 							"query": [
 								{
 									"key": "phone",
-									"value": "hello"
+									"value": "01792349773"
 								}
 							]
 						}
