@@ -1,5 +1,5 @@
 # Contact App
-A simple Contact Management application built using Node.js and Express.js. This app allows users to manage a list of contacts including creating, updating, viewing, and deleting contacts. The application uses JWT for authentication and MongoDB as the database.
+This is a Contact Management application built using Node.js and Express.js. This app allows users to manage a list of contacts including creating, updating, viewing, and deleting contacts. The application uses JWT for authentication and MongoDB as the database.
 Additionally, the app provides functionality for authenticated users to import and export their contact data from and to a JSON file, allowing easy backup and data transfer.
 
 ## Features
